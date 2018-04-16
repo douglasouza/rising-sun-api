@@ -21,7 +21,7 @@ public class Car {
     @Column(name = "cr_name", nullable = false)
     private String name;
 
-    @JoinColumn(name = "cc_id")
+    @JoinColumn(name = "cc_id", nullable = false)
     @ManyToOne
     private CarClass carClass;
 

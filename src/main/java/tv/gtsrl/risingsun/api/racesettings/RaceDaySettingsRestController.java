@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rising-sun/race-settings")
-public class RaceSettingsRestController {
+public class RaceDaySettingsRestController {
 
     @Autowired
-    private RaceSettingsRepository raceSettingsRepo;
+    private RaceDaySettingsRepository repo;
 
     @RequestMapping(method = RequestMethod.POST)
-    public Object add(@RequestBody RaceSettings raceSettings) {
-        return raceSettingsRepo.save(raceSettings);
+    public Object add(@RequestBody RaceDaySettings raceSettings) {
+        return repo.save(raceSettings);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public Object findAll() {
-        return raceSettingsRepo.findAll();
+        return repo.findAll();
     }
 
 }

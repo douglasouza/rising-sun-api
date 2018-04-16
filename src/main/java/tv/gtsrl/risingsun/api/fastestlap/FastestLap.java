@@ -1,6 +1,7 @@
 package tv.gtsrl.risingsun.api.fastestlap;
 
 import tv.gtsrl.risingsun.api.driver.Driver;
+import tv.gtsrl.risingsun.api.race.Race;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +26,11 @@ public class FastestLap {
     @Temporal(TemporalType.TIME)
     private Date fastestLapTime;
 
-    @JoinColumn(name = "dr_id")
+    @JoinColumn(name = "ra_id", nullable = false)
+    @ManyToOne
+    private Race race;
+
+    @JoinColumn(name = "dr_id", nullable = false)
     @ManyToOne
     private Driver driver;
 
@@ -43,6 +48,14 @@ public class FastestLap {
 
     public void setFastestLapTime(Date fastestLapTime) {
         this.fastestLapTime = fastestLapTime;
+    }
+
+    public Race getRace() {
+        return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
     }
 
     public Driver getDriver() {

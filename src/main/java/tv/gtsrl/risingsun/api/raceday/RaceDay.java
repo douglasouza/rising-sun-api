@@ -28,8 +28,8 @@ public class RaceDay {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @Column(name = "rd_host", nullable = false)
-    private String host;
+    @Column(name = "rd_lobby_host", nullable = false)
+    private String lobbyHost;
 
     @Column(name = "rd_event_format", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -55,11 +55,27 @@ public class RaceDay {
         this.date = date;
     }
 
-    public String getHost() {
-        return host;
+    public String getLobbyHost() {
+        return lobbyHost;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public void setLobbyHost(String lobbyHost) {
+        this.lobbyHost = lobbyHost;
+    }
+
+    public EventFormatEnum getEventFormat() {
+        return eventFormat;
+    }
+
+    public void setEventFormat(EventFormatEnum eventFormat) {
+        this.eventFormat = eventFormat;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
     }
 }

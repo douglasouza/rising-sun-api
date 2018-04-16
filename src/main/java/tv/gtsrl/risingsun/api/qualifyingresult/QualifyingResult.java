@@ -29,15 +29,15 @@ public class QualifyingResult {
     @Temporal(TemporalType.TIME)
     private Date qualifyingTime;
 
-    @JoinColumn(name = "dr_id")
+    @JoinColumn(name = "dr_id", nullable = false)
     @ManyToOne
     private Driver driver;
 
-    @JoinColumn(name = "cr_id")
+    @JoinColumn(name = "cr_id", nullable = false)
     @ManyToOne
     private Car car;
 
-    @JoinColumn(name = "rd_id")
+    @JoinColumn(name = "rd_id", nullable = false)
     @ManyToOne
     private RaceDay raceDay;
 

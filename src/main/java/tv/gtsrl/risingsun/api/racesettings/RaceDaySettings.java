@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class RaceSettings {
+public class RaceDaySettings {
 
     @Id
     @Column(name = "rs_id")
@@ -76,12 +76,100 @@ public class RaceSettings {
 //    private Boolean autoRecovery;
 
     @ManyToMany
-    @JoinTable(name = "racesettings_carclass",
+    @JoinTable(name = "racedaysettings_carclass",
             joinColumns = {@JoinColumn(name = "se_id")},
             inverseJoinColumns = {@JoinColumn(name = "cc_id")})
     private List<CarClass> carClass;
 
-    @JoinColumn(name = "rd_id")
+    @JoinColumn(name = "rd_id", nullable = false)
     @ManyToOne
     private RaceDay raceDay;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public StartTypeEnum getStartType() {
+        return startType;
+    }
+
+    public void setStartType(StartTypeEnum startType) {
+        this.startType = startType;
+    }
+
+    public BoostEnum getBoost() {
+        return boost;
+    }
+
+    public void setBoost(BoostEnum boost) {
+        this.boost = boost;
+    }
+
+    public SlipstreamEnum getSlipstream() {
+        return slipstream;
+    }
+
+    public void setSlipstream(SlipstreamEnum slipstream) {
+        this.slipstream = slipstream;
+    }
+
+    public MechanicalDamageEnum getMechanicalDamage() {
+        return mechanicalDamage;
+    }
+
+    public void setMechanicalDamage(MechanicalDamageEnum mechanicalDamage) {
+        this.mechanicalDamage = mechanicalDamage;
+    }
+
+    public TireWearFuelConsumptionEnum getTireWear() {
+        return tireWear;
+    }
+
+    public void setTireWear(TireWearFuelConsumptionEnum tireWear) {
+        this.tireWear = tireWear;
+    }
+
+    public TireWearFuelConsumptionEnum getFuelConsumption() {
+        return fuelConsumption;
+    }
+
+    public void setFuelConsumption(TireWearFuelConsumptionEnum fuelConsumption) {
+        this.fuelConsumption = fuelConsumption;
+    }
+
+    public Boolean getBop() {
+        return bop;
+    }
+
+    public void setBop(Boolean bop) {
+        this.bop = bop;
+    }
+
+    public Boolean getTunningAllowed() {
+        return tunningAllowed;
+    }
+
+    public void setTunningAllowed(Boolean tunningAllowed) {
+        this.tunningAllowed = tunningAllowed;
+    }
+
+    public List<CarClass> getCarClass() {
+        return carClass;
+    }
+
+    public void setCarClass(List<CarClass> carClass) {
+        this.carClass = carClass;
+    }
+
+    public RaceDay getRaceDay() {
+        return raceDay;
+    }
+
+    public void setRaceDay(RaceDay raceDay) {
+        this.raceDay = raceDay;
+    }
 }

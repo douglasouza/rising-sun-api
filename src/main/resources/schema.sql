@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.7
+-- Dumped from database version 9.6.6
 -- Dumped by pg_dump version 9.6.8
 
 SET statement_timeout = 0;
@@ -16,14 +16,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -482,22 +482,6 @@ ALTER TABLE ONLY public.track ALTER COLUMN tr_id SET DEFAULT nextval('public.tra
 
 
 --
--- Data for Name: car; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.car (cr_id, cr_name, cc_id) FROM stdin;
-\.
-
-
---
--- Data for Name: car_class; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.car_class (cc_id, cc_name) FROM stdin;
-\.
-
-
---
 -- Name: car_class_cc_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -512,22 +496,6 @@ SELECT pg_catalog.setval('public.car_cr_id_seq', 1, false);
 
 
 --
--- Data for Name: driver; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.driver (dr_id, dr_country, dr_name) FROM stdin;
-\.
-
-
---
--- Data for Name: fastest_lap; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.fastest_lap (fl_id, fl_time, dr_id) FROM stdin;
-\.
-
-
---
 -- Name: fastest_lap_fl_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -535,34 +503,10 @@ SELECT pg_catalog.setval('public.fastest_lap_fl_id_seq', 1, false);
 
 
 --
--- Data for Name: qualifying_result; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.qualifying_result (qr_id, qr_time, cr_id, dr_id, rd_id) FROM stdin;
-\.
-
-
---
 -- Name: qualifying_result_qr_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.qualifying_result_qr_id_seq', 1, false);
-
-
---
--- Data for Name: race; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.race (ra_id, rs_number_of_laps, fl_id, rd_id, tr_id) FROM stdin;
-\.
-
-
---
--- Data for Name: race_day; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.race_day (rd_id, rd_date, rd_event_format, rd_host, se_id) FROM stdin;
-\.
 
 
 --
@@ -580,26 +524,10 @@ SELECT pg_catalog.setval('public.race_ra_id_seq', 1, false);
 
 
 --
--- Data for Name: race_result; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.race_result (rr_id, rr_finish_position, rr_race_time, rr_start_position, cr_id, dr_id, ra_id) FROM stdin;
-\.
-
-
---
 -- Name: race_result_rr_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.race_result_rr_id_seq', 1, false);
-
-
---
--- Data for Name: race_settings; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.race_settings (rs_id, rs_boost, rs_bop, rs_fuel_consumption, rs_mechanical_damage, rs_slipstream, rs_start, rs_tire_wear, rs_tuning, rd_id) FROM stdin;
-\.
 
 
 --
@@ -610,34 +538,10 @@ SELECT pg_catalog.setval('public.race_settings_rs_id_seq', 1, false);
 
 
 --
--- Data for Name: racesettings_carclass; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.racesettings_carclass (se_id, cc_id) FROM stdin;
-\.
-
-
---
--- Data for Name: season; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.season (se_id) FROM stdin;
-\.
-
-
---
 -- Name: season_se_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.season_se_id_seq', 1, false);
-
-
---
--- Data for Name: track; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.track (tr_id, tr_name) FROM stdin;
-\.
 
 
 --
@@ -858,3 +762,4 @@ ALTER TABLE ONLY public.race
 --
 -- PostgreSQL database dump complete
 --
+

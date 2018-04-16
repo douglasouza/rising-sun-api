@@ -20,18 +20,14 @@ public class Race {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rs_number_of_laps")
+    @Column(name = "rs_number_of_laps", nullable = false)
     private Integer numberOfLaps;
 
-    @JoinColumn(name = "fl_id", nullable = false)
-    @ManyToOne
-    private FastestLap fastestLap;
-
-    @JoinColumn(name = "tr_id")
+    @JoinColumn(name = "tr_id", nullable = false)
     @ManyToOne
     private Track track;
 
-    @JoinColumn(name = "rd_id")
+    @JoinColumn(name = "rd_id", nullable = false)
     @ManyToOne
     private RaceDay raceDay;
 
@@ -43,12 +39,12 @@ public class Race {
         this.id = id;
     }
 
-    public FastestLap getFastestLap() {
-        return fastestLap;
+    public Integer getNumberOfLaps() {
+        return numberOfLaps;
     }
 
-    public void setFastestLap(FastestLap fastestLap) {
-        this.fastestLap = fastestLap;
+    public void setNumberOfLaps(Integer numberOfLaps) {
+        this.numberOfLaps = numberOfLaps;
     }
 
     public Track getTrack() {

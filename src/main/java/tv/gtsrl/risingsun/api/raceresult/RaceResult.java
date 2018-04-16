@@ -34,15 +34,15 @@ public class RaceResult {
     @Temporal(TemporalType.TIME)
     private Date raceTime;
 
-    @JoinColumn(name = "dr_id")
+    @JoinColumn(name = "dr_id", nullable = false)
     @ManyToOne
     private Driver driver;
 
-    @JoinColumn(name = "cr_id")
+    @JoinColumn(name = "cr_id", nullable = false)
     @ManyToOne
     private Car car;
 
-    @JoinColumn(name = "ra_id")
+    @JoinColumn(name = "ra_id", nullable = false)
     @ManyToOne
     private Race race;
 
