@@ -1,0 +1,3 @@
+INSERT INTO public.car (cr_name, cc_id) VALUES ('au TOM''s RC F ''16', (select cc_id from public.car_class where cc_name = 'Gr.2'));
+INSERT INTO public.car (cr_name, cc_id) VALUES ('MOTUL AUTECH GT-R ''16', (select cc_id from public.car_class where cc_name = 'Gr.2'));
+INSERT INTO public.car (cr_name, cc_id) VALUES ('RAYBRIG NSX CONCEPT-GT ''16', (select cc_id from public.car_class where cc_name = 'Gr.2'));

@@ -1,0 +1,16 @@
+INSERT INTO public.car_class (cc_name) VALUES ('Gr.X');
+INSERT INTO public.car_class (cc_name) VALUES ('Gr.B');
+INSERT INTO public.car_class (cc_name) VALUES ('Gr.1');
+INSERT INTO public.car_class (cc_name) VALUES ('Gr.2');
+INSERT INTO public.car_class (cc_name) VALUES ('Gr.3');
+INSERT INTO public.car_class (cc_name) VALUES ('Gr.4');
+INSERT INTO public.car_class (cc_name) VALUES ('N1000');
+INSERT INTO public.car_class (cc_name) VALUES ('N900');
+INSERT INTO public.car_class (cc_name) VALUES ('N800');
+INSERT INTO public.car_class (cc_name) VALUES ('N700');
+INSERT INTO public.car_class (cc_name) VALUES ('N600');
+INSERT INTO public.car_class (cc_name) VALUES ('N500');
+INSERT INTO public.car_class (cc_name) VALUES ('N400');
+INSERT INTO public.car_class (cc_name) VALUES ('N300');
+INSERT INTO public.car_class (cc_name) VALUES ('N200');
+INSERT INTO public.car_class (cc_name) VALUES ('N100');
