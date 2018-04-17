@@ -21,7 +21,7 @@ public class DriverRestController {
     private DriverBO bo;
 
     @PostMapping(params = "driverGtsId")
-    public Object insert(@RequestParam("driverGtsId") Integer driverGtsId) {
+    public Driver insert(@RequestParam("driverGtsId") Integer driverGtsId) {
         try {
             return bo.insert(driverGtsId);
         } catch (IOException e) {

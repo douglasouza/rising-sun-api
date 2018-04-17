@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rising-sun/raceDay/{raceDayId}/qualifying-result")
+@RequestMapping("/rising-sun/race-day/{raceDayId}/qualifying-result")
 public class QualifyingResultRestController {
 
     @Autowired

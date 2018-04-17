@@ -3,17 +3,11 @@
     "numberOfLaps": "10",
     "track": {
       "id": 1
-    },
-    "raceDay": {
-      "id": 1
     }
   },
   {
     "numberOfLaps": "10",
     "track": {
-      "id": 1
-    },
-    "raceDay": {
       "id": 1
     }
   }

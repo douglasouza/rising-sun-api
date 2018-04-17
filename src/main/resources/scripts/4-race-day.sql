@@ -1,0 +1,1 @@
+INSERT INTO public.race_day (rd_date, rd_event_format, rd_lobby_host) VALUES ('2018-04-14T09:00:00.000', 'SOLO', 'theLANAtron');
