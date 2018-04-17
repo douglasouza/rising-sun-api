@@ -1,39 +1,38 @@
 package tv.gtsrl.risingsun.api.driver;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.logging.Logger;
+import java.util.List;
 
 @RestController
 @RequestMapping("/rising-sun/driver")
 public class DriverRestController {
 
-    //private static final Logger = new Logger(DriverRestController);
-
     @Autowired
-    private DriverRepository driverRepo;
+    private DriverRepository repo;
 
     @Autowired
     private DriverBO bo;
 
-    @RequestMapping(method = RequestMethod.POST, path = "/{driverGtsId}")
-    public Object add(@PathVariable("driverGtsId") Integer driverGtsId) {
+    @PostMapping(params = "driverGtsId")
+    public Object insert(@RequestParam("driverGtsId") Integer driverGtsId) {
         try {
-            return bo.addDriver(driverGtsId);
+            return bo.insert(driverGtsId);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public Object findAll() {
-        return driverRepo.findAll();
+    @GetMapping
+    public List<Driver> getAll() {
+        return repo.findAll();
     }
 
 }

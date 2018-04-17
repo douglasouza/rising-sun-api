@@ -1,6 +1,5 @@
 package tv.gtsrl.risingsun.api.race;
 
-import tv.gtsrl.risingsun.api.fastestlap.FastestLap;
 import tv.gtsrl.risingsun.api.raceday.RaceDay;
 import tv.gtsrl.risingsun.api.track.Track;
 
@@ -20,7 +19,7 @@ public class Race {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rs_number_of_laps", nullable = false)
+    @Column(name = "ra_number_of_laps", nullable = false)
     private Integer numberOfLaps;
 
     @JoinColumn(name = "tr_id", nullable = false)

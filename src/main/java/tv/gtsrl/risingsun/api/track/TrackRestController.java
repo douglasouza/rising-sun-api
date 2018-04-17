@@ -1,10 +1,13 @@
 package tv.gtsrl.risingsun.api.track;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/rising-sun/track")
@@ -13,13 +16,13 @@ public class TrackRestController {
     @Autowired
     private TrackRepository trackRepo;
 
-    @RequestMapping(method = RequestMethod.POST)
-    public Object add(@RequestBody Track track) {
+    @PostMapping
+    public Track insert(@RequestBody Track track) {
         return trackRepo.save(track);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public Object findAll() {
+    @GetMapping
+    public List<Track> getAll() {
         return trackRepo.findAll();
     }
 

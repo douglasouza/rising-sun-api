@@ -7,10 +7,8 @@ import tv.gtsrl.risingsun.api.race.Race;
 import tv.gtsrl.risingsun.api.race.RaceRepository;
 import tv.gtsrl.risingsun.api.racesettings.RaceDaySettings;
 import tv.gtsrl.risingsun.api.racesettings.RaceDaySettingsRepository;
-import tv.gtsrl.risingsun.common.exception.DateBeforeTodayException;
 import tv.gtsrl.risingsun.common.exception.RaceQualifyingResultRegisteredException;
 
-import java.util.Date;
 import java.util.List;
 
 @Component

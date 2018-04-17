@@ -17,7 +17,7 @@ import java.util.List;
 public class RaceDayRestController {
 
     @Autowired
-    private RaceDayRepository raceDayRepo;
+    private RaceDayRepository repo;
 
     @Autowired
     private RaceDayBO bo;
@@ -39,12 +39,12 @@ public class RaceDayRestController {
 
     @GetMapping
     public List<RaceDay> getAll() {
-        return raceDayRepo.findAll();
+        return repo.findAll();
     }
 
     @GetMapping(path = "/{raceDayId}")
     public RaceDay getOne(@PathVariable("raceDayId") Long raceDayId) {
-        return raceDayRepo.getOne(raceDayId);
+        return repo.getOne(raceDayId);
     }
 
 }

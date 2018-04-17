@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FastestLapRepository extends JpaRepository<FastestLap, Long> {
+
+    FastestLap findByRaceId(Long raceId);
 }
