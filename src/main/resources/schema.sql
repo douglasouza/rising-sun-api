@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.6
+-- Dumped from database version 9.6.7
 -- Dumped by pg_dump version 9.6.8
 
 SET statement_timeout = 0;
@@ -40,7 +40,7 @@ SET default_with_oids = false;
 CREATE TABLE public.car (
     cr_id bigint NOT NULL,
     cr_name character varying(255) NOT NULL,
-    cc_id bigint
+    cc_id bigint NOT NULL
 );
 
 
@@ -119,8 +119,9 @@ ALTER TABLE public.driver OWNER TO postgres;
 
 CREATE TABLE public.fastest_lap (
     fl_id bigint NOT NULL,
-    fl_time time without time zone NOT NULL,
-    dr_id bigint
+    fl_time character varying(255) NOT NULL,
+    dr_id bigint NOT NULL,
+    ra_id bigint NOT NULL
 );
 
 
@@ -153,10 +154,10 @@ ALTER SEQUENCE public.fastest_lap_fl_id_seq OWNED BY public.fastest_lap.fl_id;
 
 CREATE TABLE public.qualifying_result (
     qr_id bigint NOT NULL,
-    qr_time time without time zone NOT NULL,
-    cr_id bigint,
-    dr_id bigint,
-    rd_id bigint
+    qr_time character varying(255) NOT NULL,
+    cr_id bigint NOT NULL,
+    dr_id bigint NOT NULL,
+    rd_id bigint NOT NULL
 );
 
 
@@ -189,10 +190,9 @@ ALTER SEQUENCE public.qualifying_result_qr_id_seq OWNED BY public.qualifying_res
 
 CREATE TABLE public.race (
     ra_id bigint NOT NULL,
-    rs_number_of_laps integer,
-    fl_id bigint NOT NULL,
-    rd_id bigint,
-    tr_id bigint
+    ra_number_of_laps integer NOT NULL,
+    rd_id bigint NOT NULL,
+    tr_id bigint NOT NULL
 );
 
 
@@ -206,7 +206,7 @@ CREATE TABLE public.race_day (
     rd_id bigint NOT NULL,
     rd_date timestamp without time zone NOT NULL,
     rd_event_format character varying(255) NOT NULL,
-    rd_host character varying(255) NOT NULL,
+    rd_lobby_host character varying(255) NOT NULL,
     se_id bigint
 );
 
@@ -232,6 +232,47 @@ ALTER TABLE public.race_day_rd_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.race_day_rd_id_seq OWNED BY public.race_day.rd_id;
+
+
+--
+-- Name: race_day_settings; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.race_day_settings (
+    rs_id bigint NOT NULL,
+    rs_boost character varying(255) NOT NULL,
+    rs_bop boolean NOT NULL,
+    rs_fuel_consumption character varying(255) NOT NULL,
+    rs_mechanical_damage character varying(255) NOT NULL,
+    rs_slipstream character varying(255) NOT NULL,
+    rs_start character varying(255) NOT NULL,
+    rs_tire_wear character varying(255) NOT NULL,
+    rs_tuning boolean NOT NULL,
+    rd_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.race_day_settings OWNER TO postgres;
+
+--
+-- Name: race_day_settings_rs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.race_day_settings_rs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.race_day_settings_rs_id_seq OWNER TO postgres;
+
+--
+-- Name: race_day_settings_rs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.race_day_settings_rs_id_seq OWNED BY public.race_day_settings.rs_id;
 
 
 --
@@ -262,11 +303,11 @@ ALTER SEQUENCE public.race_ra_id_seq OWNED BY public.race.ra_id;
 CREATE TABLE public.race_result (
     rr_id bigint NOT NULL,
     rr_finish_position integer NOT NULL,
-    rr_race_time time without time zone NOT NULL,
+    rr_race_time character varying(255) NOT NULL,
     rr_start_position integer NOT NULL,
-    cr_id bigint,
-    dr_id bigint,
-    ra_id bigint
+    cr_id bigint NOT NULL,
+    dr_id bigint NOT NULL,
+    ra_id bigint NOT NULL
 );
 
 
@@ -294,57 +335,16 @@ ALTER SEQUENCE public.race_result_rr_id_seq OWNED BY public.race_result.rr_id;
 
 
 --
--- Name: race_settings; Type: TABLE; Schema: public; Owner: postgres
+-- Name: racedaysettings_carclass; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.race_settings (
-    rs_id bigint NOT NULL,
-    rs_boost character varying(255) NOT NULL,
-    rs_bop boolean NOT NULL,
-    rs_fuel_consumption character varying(255) NOT NULL,
-    rs_mechanical_damage character varying(255) NOT NULL,
-    rs_slipstream character varying(255) NOT NULL,
-    rs_start character varying(255) NOT NULL,
-    rs_tire_wear character varying(255) NOT NULL,
-    rs_tuning boolean NOT NULL,
-    rd_id bigint
-);
-
-
-ALTER TABLE public.race_settings OWNER TO postgres;
-
---
--- Name: race_settings_rs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.race_settings_rs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.race_settings_rs_id_seq OWNER TO postgres;
-
---
--- Name: race_settings_rs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.race_settings_rs_id_seq OWNED BY public.race_settings.rs_id;
-
-
---
--- Name: racesettings_carclass; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.racesettings_carclass (
+CREATE TABLE public.racedaysettings_carclass (
     se_id bigint NOT NULL,
     cc_id bigint NOT NULL
 );
 
 
-ALTER TABLE public.racesettings_carclass OWNER TO postgres;
+ALTER TABLE public.racedaysettings_carclass OWNER TO postgres;
 
 --
 -- Name: season; Type: TABLE; Schema: public; Owner: postgres
@@ -454,17 +454,17 @@ ALTER TABLE ONLY public.race_day ALTER COLUMN rd_id SET DEFAULT nextval('public.
 
 
 --
+-- Name: race_day_settings rs_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.race_day_settings ALTER COLUMN rs_id SET DEFAULT nextval('public.race_day_settings_rs_id_seq'::regclass);
+
+
+--
 -- Name: race_result rr_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.race_result ALTER COLUMN rr_id SET DEFAULT nextval('public.race_result_rr_id_seq'::regclass);
-
-
---
--- Name: race_settings rs_id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.race_settings ALTER COLUMN rs_id SET DEFAULT nextval('public.race_settings_rs_id_seq'::regclass);
 
 
 --
@@ -482,6 +482,22 @@ ALTER TABLE ONLY public.track ALTER COLUMN tr_id SET DEFAULT nextval('public.tra
 
 
 --
+-- Data for Name: car; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.car (cr_id, cr_name, cc_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: car_class; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.car_class (cc_id, cc_name) FROM stdin;
+\.
+
+
+--
 -- Name: car_class_cc_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -496,10 +512,34 @@ SELECT pg_catalog.setval('public.car_cr_id_seq', 1, false);
 
 
 --
+-- Data for Name: driver; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.driver (dr_id, dr_country, dr_name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: fastest_lap; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.fastest_lap (fl_id, fl_time, dr_id, ra_id) FROM stdin;
+\.
+
+
+--
 -- Name: fastest_lap_fl_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.fastest_lap_fl_id_seq', 1, false);
+
+
+--
+-- Data for Name: qualifying_result; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.qualifying_result (qr_id, qr_time, cr_id, dr_id, rd_id) FROM stdin;
+\.
 
 
 --
@@ -510,10 +550,41 @@ SELECT pg_catalog.setval('public.qualifying_result_qr_id_seq', 1, false);
 
 
 --
+-- Data for Name: race; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.race (ra_id, ra_number_of_laps, rd_id, tr_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: race_day; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.race_day (rd_id, rd_date, rd_event_format, rd_lobby_host, se_id) FROM stdin;
+\.
+
+
+--
 -- Name: race_day_rd_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.race_day_rd_id_seq', 1, false);
+
+
+--
+-- Data for Name: race_day_settings; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.race_day_settings (rs_id, rs_boost, rs_bop, rs_fuel_consumption, rs_mechanical_damage, rs_slipstream, rs_start, rs_tire_wear, rs_tuning, rd_id) FROM stdin;
+\.
+
+
+--
+-- Name: race_day_settings_rs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.race_day_settings_rs_id_seq', 1, false);
 
 
 --
@@ -524,6 +595,14 @@ SELECT pg_catalog.setval('public.race_ra_id_seq', 1, false);
 
 
 --
+-- Data for Name: race_result; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.race_result (rr_id, rr_finish_position, rr_race_time, rr_start_position, cr_id, dr_id, ra_id) FROM stdin;
+\.
+
+
+--
 -- Name: race_result_rr_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -531,10 +610,19 @@ SELECT pg_catalog.setval('public.race_result_rr_id_seq', 1, false);
 
 
 --
--- Name: race_settings_rs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Data for Name: racedaysettings_carclass; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.race_settings_rs_id_seq', 1, false);
+COPY public.racedaysettings_carclass (se_id, cc_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: season; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.season (se_id) FROM stdin;
+\.
 
 
 --
@@ -542,6 +630,14 @@ SELECT pg_catalog.setval('public.race_settings_rs_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.season_se_id_seq', 1, false);
+
+
+--
+-- Data for Name: track; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.track (tr_id, tr_name) FROM stdin;
+\.
 
 
 --
@@ -600,6 +696,14 @@ ALTER TABLE ONLY public.race_day
 
 
 --
+-- Name: race_day_settings race_day_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.race_day_settings
+    ADD CONSTRAINT race_day_settings_pkey PRIMARY KEY (rs_id);
+
+
+--
 -- Name: race race_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -613,14 +717,6 @@ ALTER TABLE ONLY public.race
 
 ALTER TABLE ONLY public.race_result
     ADD CONSTRAINT race_result_pkey PRIMARY KEY (rr_id);
-
-
---
--- Name: race_settings race_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.race_settings
-    ADD CONSTRAINT race_settings_pkey PRIMARY KEY (rs_id);
 
 
 --
@@ -656,14 +752,6 @@ ALTER TABLE ONLY public.race_day
 
 
 --
--- Name: racesettings_carclass fk70anaj3vschp4px415osfm3fo; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.racesettings_carclass
-    ADD CONSTRAINT fk70anaj3vschp4px415osfm3fo FOREIGN KEY (cc_id) REFERENCES public.car_class(cc_id);
-
-
---
 -- Name: qualifying_result fk89pkpf7iu83xq1p67xaymbvy; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -680,19 +768,19 @@ ALTER TABLE ONLY public.qualifying_result
 
 
 --
+-- Name: racedaysettings_carclass fkc0picpdfl4ffe4qd9pwgdonr8; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.racedaysettings_carclass
+    ADD CONSTRAINT fkc0picpdfl4ffe4qd9pwgdonr8 FOREIGN KEY (se_id) REFERENCES public.race_day_settings(rs_id);
+
+
+--
 -- Name: race_result fkc5qhuub99ayxss763lmxhbwee; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.race_result
     ADD CONSTRAINT fkc5qhuub99ayxss763lmxhbwee FOREIGN KEY (cr_id) REFERENCES public.car(cr_id);
-
-
---
--- Name: racesettings_carclass fke7jrm9mwfx5r7o74ft3k4tdug; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.racesettings_carclass
-    ADD CONSTRAINT fke7jrm9mwfx5r7o74ft3k4tdug FOREIGN KEY (se_id) REFERENCES public.race_settings(rs_id);
 
 
 --
@@ -712,11 +800,27 @@ ALTER TABLE ONLY public.race
 
 
 --
+-- Name: fastest_lap fkhikd5gcafbka0le4l0cw6l72r; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.fastest_lap
+    ADD CONSTRAINT fkhikd5gcafbka0le4l0cw6l72r FOREIGN KEY (ra_id) REFERENCES public.race(ra_id);
+
+
+--
 -- Name: fastest_lap fkiqqjni4rdqe632f1o4w6qrl9g; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.fastest_lap
     ADD CONSTRAINT fkiqqjni4rdqe632f1o4w6qrl9g FOREIGN KEY (dr_id) REFERENCES public.driver(dr_id);
+
+
+--
+-- Name: race_day_settings fkisae7saunlr3e7j7dap849mpq; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.race_day_settings
+    ADD CONSTRAINT fkisae7saunlr3e7j7dap849mpq FOREIGN KEY (rd_id) REFERENCES public.race_day(rd_id);
 
 
 --
@@ -728,11 +832,11 @@ ALTER TABLE ONLY public.race_result
 
 
 --
--- Name: race fklmpfdqeeqftrfroxwti62w4tn; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: racedaysettings_carclass fkpb4fg684pym6gwopkmgjy8y2h; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.race
-    ADD CONSTRAINT fklmpfdqeeqftrfroxwti62w4tn FOREIGN KEY (fl_id) REFERENCES public.fastest_lap(fl_id);
+ALTER TABLE ONLY public.racedaysettings_carclass
+    ADD CONSTRAINT fkpb4fg684pym6gwopkmgjy8y2h FOREIGN KEY (cc_id) REFERENCES public.car_class(cc_id);
 
 
 --
@@ -741,14 +845,6 @@ ALTER TABLE ONLY public.race
 
 ALTER TABLE ONLY public.qualifying_result
     ADD CONSTRAINT fkqjar0fgljd48ir7grtxvggqb3 FOREIGN KEY (cr_id) REFERENCES public.car(cr_id);
-
-
---
--- Name: race_settings fkrr2uk1gwx849kehy68o6qnl1v; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.race_settings
-    ADD CONSTRAINT fkrr2uk1gwx849kehy68o6qnl1v FOREIGN KEY (rd_id) REFERENCES public.race_day(rd_id);
 
 
 --
@@ -762,4 +858,3 @@ ALTER TABLE ONLY public.race
 --
 -- PostgreSQL database dump complete
 --
-

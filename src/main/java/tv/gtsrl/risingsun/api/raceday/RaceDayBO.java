@@ -24,9 +24,6 @@ public class RaceDayBO {
     private RaceDaySettingsRepository raceDaySettingsRepo;
 
     public RaceDay insert(RaceDay raceDay) {
-//        if (raceDay.getDate().before(new Date()))
-//            throw new DateBeforeTodayException();
-
         return repo.save(raceDay);
     }
 

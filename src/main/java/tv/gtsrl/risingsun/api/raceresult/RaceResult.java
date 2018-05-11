@@ -11,9 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class RaceResult {
@@ -30,8 +28,8 @@ public class RaceResult {
     private Integer finishPosition;
 
     @Column(name = "rr_race_time", nullable = false)
-    @Temporal(TemporalType.TIME)
-    private Date raceTime;
+    @Pattern(regexp = "\\d{2}\\:\\d{2}\\:\\d{2}\\.\\d{3}")
+    private String raceTime;
 
     @JoinColumn(name = "dr_id", nullable = false)
     @ManyToOne
@@ -69,11 +67,11 @@ public class RaceResult {
         this.finishPosition = finishPosition;
     }
 
-    public Date getRaceTime() {
+    public @Pattern(regexp = "\\d{2}\\:\\d{2}\\:\\d{2}\\.\\d{3}") String getRaceTime() {
         return raceTime;
     }
 
-    public void setRaceTime(Date raceTime) {
+    public void setRaceTime(String raceTime) {
         this.raceTime = raceTime;
     }
 

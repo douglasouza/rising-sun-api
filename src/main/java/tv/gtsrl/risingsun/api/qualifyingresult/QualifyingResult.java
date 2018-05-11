@@ -11,9 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class QualifyingResult {
@@ -24,8 +22,8 @@ public class QualifyingResult {
     private Long id;
 
     @Column(name = "qr_time", nullable = false)
-    @Temporal(TemporalType.TIME)
-    private Date qualifyingTime;
+    @Pattern(regexp = "\\d{2}\\:\\d{2}\\.\\d{3}")
+    private String qualifyingTime;
 
     @JoinColumn(name = "dr_id", nullable = false)
     @ManyToOne
@@ -47,11 +45,11 @@ public class QualifyingResult {
         this.id = id;
     }
 
-    public Date getQualifyingTime() {
+    public @Pattern(regexp = "\\d{2}\\:\\d{2}\\.\\d{3}") String getQualifyingTime() {
         return qualifyingTime;
     }
 
-    public void setQualifyingTime(Date qualifyingTime) {
+    public void setQualifyingTime(String qualifyingTime) {
         this.qualifyingTime = qualifyingTime;
     }
 

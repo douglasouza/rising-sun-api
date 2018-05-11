@@ -10,9 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class FastestLap {
@@ -23,8 +21,8 @@ public class FastestLap {
     private Long id;
 
     @Column(name = "fl_time", nullable = false)
-    @Temporal(TemporalType.TIME)
-    private Date fastestLapTime;
+    @Pattern(regexp = "\\d{2}\\:\\d{2}\\.\\d{3}")
+    private String fastestLapTime;
 
     @JoinColumn(name = "ra_id", nullable = false)
     @ManyToOne
@@ -42,11 +40,11 @@ public class FastestLap {
         this.id = id;
     }
 
-    public Date getFastestLapTime() {
+    public @Pattern(regexp = "\\d{2}\\:\\d{2}\\.\\d{3}") String getFastestLapTime() {
         return fastestLapTime;
     }
 
-    public void setFastestLapTime(Date fastestLapTime) {
+    public void setFastestLapTime(String fastestLapTime) {
         this.fastestLapTime = fastestLapTime;
     }
 
