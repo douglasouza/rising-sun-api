@@ -5,5 +5,5 @@ REST Api for the Rising Sun Series - A part of GTSRL
 
 The API provides services for the following entities (click on any of them for more info):
 
-* [Driver](#DRIVER-SERVICE.md)
-* [Race Day](#RACEDAY-SERVICE.md)
+* [Driver](DRIVER-SERVICE.md)
+* [RaceDay](RACEDAY-SERVICE.md)

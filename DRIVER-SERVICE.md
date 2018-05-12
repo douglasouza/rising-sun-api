@@ -2,9 +2,7 @@
 
 __Base URL__: `/rising-sun/driver`
 
-___
-
-* __Insert a Driver__
+## Insert a Driver
 
 __Method__: POST
 
@@ -21,9 +19,7 @@ $.ajax({
   }
 });
 ```
-___
-
-* __Fetch all Drivers__
+## Fetch all Drivers
 
 __Method__: GET
 
@@ -47,8 +43,8 @@ __Success Response Content__:
         "country": "us"
     },
     {
-        "id": 1,
-        "name": "driver1",
+        "id": 2,
+        "name": "driver2",
         "country": "br"
     }
 ]
